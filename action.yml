@@ -1,18 +1,30 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'gha-docker-registry-tag-info'
+description: 'GitHub Action to get tag information from a docker registry for a given image'
+author: 'hakwerk <github@hakwerk.com>'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  image:
+    description: 'Full image name to find, with format author/image:tag, or image:tag for official images'
     required: true
-    default: '1000'
+  os:
+    description: 'Image OS to find'
+    default: 'linux'
+  architecture:
+    description: 'Image architecture to find'
+    default: 'amd64'
+  pageLimit:
+    description: 'How many pages of results to parse until giving up'
+    default: '10'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  digest:
+    description: 'Image digest'
+  tagMetadata:
+    description: 'Full JSON output of the found image-tag metadata (as read from Docker Registry API)'
+  finalImageMetadata:
+    description: 'Full JSON output of the found final image metadata, for the OS and architecture specified (as read from Docker Registry API)'
 
 runs:
   using: node20

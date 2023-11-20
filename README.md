@@ -1,26 +1,51 @@
-# Create a JavaScript Action
+# GitHub Action: Docker registry tag info
 
-[![GitHub Super-Linter](https://github.com/actions/javascript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/javascript-action/actions/workflows/ci.yml/badge.svg)
+[![GitHub Super-Linter](https://github.com/hakwerk/gha-docker-registry-tag-info/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/hakwerk/gha-docker-registry-tag-info/actions/workflows/ci.yml/badge.svg)
 
-Use this template to bootstrap the creation of a JavaScript action. :rocket:
+GitHub Action to get tag information (primarily the digest) from a docker registry for a given image.
 
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
+The API endpoint used for fetching the metadata is (with the example of the official Python image): `https://registry.hub.docker.com/v2/repositories/library/python/tags?page=1`
 
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
+## Action I/O
 
-## Create Your Own Action
+### Inputs
 
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
+- `image`: full image name to find, with format `author/image:tag`, or `image:tag` for official images (required)
+- `os`: image OS to find (default: `linux`)
+- `architecture`: image architecture to find (default: `amd64`)
+- `pageLimit`: how many pages of results to parse, until giving up (default: `10`)
 
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
+### Outputs
+
+**If the image is not found, the Action will fail!**
+
+- `digest`: found image digest (example: `sha256:ec698176504f2f2d0e50e7e627d7db17be0c8c1a36fe34bb5b7c90c79355f7bb`)
+- Full JSON outputs from the API: these are categorized in two outputs:
+    - `tagMetadata` is the whole object for a certain tag (e.g. `python:slim-buster`). This includes an array of images, being each image a variant for a certain os and architecture
+    - `finalImageMetadata` is the whole object for a concrete image of the found tag, matching the input os and architecture. This object is filtered out from the array of images found on the "tagMetadata" object
+
+### Example
+
+An example of how the Action is used would be the following:
+
+```yaml
+steps:
+- name: Fetch image metadata
+  id: metadata
+  uses: hakwerk/gha-docker-registry-tag-info@v1
+  with:
+    image: debian:slim-buster
+    os: linux
+    architecture: arm/v7
+    pageLimit: 5
+
+- name: Print image metadata
+  run: |
+    echo "Digest: ${{ steps.metadata.outputs.digest }}"
+    echo "Tag Metadata JSON: ${{ steps.metadata.outputs.tagMetadata }}"
+    echo "Target Image Metadata JSON: ${{ steps.metadata.outputs.finalImageMetadata }}"
+```
 
 ## Initial Setup
 
@@ -54,50 +79,21 @@ need to perform some initial setup steps before you can develop your action.
    $ npm test
 
    PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
+    action
+      ✓ gets the python image (360 ms)
+      ✓ complains if no image is given
+      ✓ complains if invalid image is given
+      ✓ complains if tag is not fount (104 ms)
+      ✓ gets the linuxserver/qbittorrent image amd64 (109 ms)
+      ✓ gets the linuxserver/qbittorrent image arm/v7 (122 ms)
+      ✓ gets the library/docker:windowsservercore image windows (109 ms)
 
    ...
    ```
 
-## Update the Action Metadata
-
-The [`action.yml`](action.yml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
-[Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
-
-When you copy this repository, update `action.yml` with the name, description,
-inputs, and outputs for your action.
-
 ## Update the Action Code
 
-The [`src/`](./src/) directory is the heart of your action! This contains the
-source code that will be run when your action is invoked. You can replace the
-contents of this directory with your own code.
-
-There are a few things to keep in mind when writing your action code:
-
-- Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.js`, you will see that the action is run in an `async` function.
-
-  ```javascript
-  const core = require('@actions/core')
-  //...
-
-  async function run() {
-    try {
-      //...
-    } catch (error) {
-      core.setFailed(error.message)
-    }
-  }
-  ```
-
-  For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
-
-So, what are you waiting for? Go ahead and start customizing your action!
+The [`src/`](./src/) directory contains the source code that will be run when the action is invoked.
 
 1. Create a new branch
 
@@ -105,8 +101,8 @@ So, what are you waiting for? Go ahead and start customizing your action!
    git checkout -b releases/v1
    ```
 
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
+1. Update the contents of `src/` as needed
+1. Update tests in `__tests__/` when applicable
 1. Format, test, and build the action
 
    ```bash
@@ -117,16 +113,16 @@ So, what are you waiting for? Go ahead and start customizing your action!
    >
    > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
    > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
+   > If you do not run this step, the action will not work correctly when it is
    > used in a workflow. This step also includes the `--license` option for
    > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
+   > modules used in the project.
 
 1. Commit your changes
 
    ```bash
    git add .
-   git commit -m "My first action is ready!"
+   git commit -m "Updated to include feature xyz"
    ```
 
 1. Push them to your repository
@@ -138,7 +134,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
 1. Create a pull request and get feedback on your action
 1. Merge the pull request into the `main` branch
 
-Your action is now published! :rocket:
+The action is now published! :rocket:
 
 For information about versioning your action, see
 [Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
@@ -170,30 +166,6 @@ steps:
 For example workflow runs, check out the
 [Actions tab](https://github.com/actions/javascript-action/actions)! :rocket:
 
-## Usage
+## Reference
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
-
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
-
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
-
-  - name: Run my Action
-    id: run-action
-    uses: actions/javascript-action@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.run-action.outputs.time }}"
-```
+This basically is [David-Lor/action-dockerhub-get-tag-metadata](https://github.com/David-Lor/action-dockerhub-get-tag-metadata) with some modernizations.

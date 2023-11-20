@@ -13,20 +13,17 @@ const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
 
-// Other utilities
-const timeRegex = /^\d{2}:\d{2}:\d{2}/
-
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('sets the time output', async () => {
+  it('gets the python image', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
       switch (name) {
-        case 'milliseconds':
-          return '500'
+        case 'image':
+          return 'python:slim-buster'
         default:
           return ''
       }
@@ -36,28 +33,112 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
-    expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      1,
+      'Target image: author=library name=python tag=slim-buster os=linux arch=amd64 pageLimit=10'
+    )
     expect(debugMock).toHaveBeenNthCalledWith(
       2,
-      expect.stringMatching(timeRegex)
+      'Requesting https://registry.hub.docker.com/v2/repositories/library/python/tags?page=1&name=slim-buster ...'
+    )
+  })
+
+  it('complains if no image is given', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(setFailedMock).toHaveBeenNthCalledWith(
+      1,
+      "Input variable 'image' not specified!"
+    )
+  })
+
+  it('complains if invalid image is given', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'image':
+          return 'no/such/image'
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(setFailedMock).toHaveBeenNthCalledWith(1, 'Invalid image format')
+  })
+
+  it('complains if tag is not fount', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'image':
+          return 'nginx:12.34.56'
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(setFailedMock).toHaveBeenNthCalledWith(1, 'Image-Tag not found!')
+  })
+
+  it('gets the linuxserver/qbittorrent image amd64', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'image':
+          return 'linuxserver/qbittorrent'
+        case 'architecture':
+          return 'amd64'
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(debugMock).toHaveBeenNthCalledWith(
+      1,
+      'Target image: author=linuxserver name=qbittorrent tag=latest os=linux arch=amd64 pageLimit=10'
     )
     expect(debugMock).toHaveBeenNthCalledWith(
-      3,
-      expect.stringMatching(timeRegex)
+      2,
+      'Requesting https://registry.hub.docker.com/v2/repositories/linuxserver/qbittorrent/tags?page=1&name=latest ...'
     )
+
     expect(setOutputMock).toHaveBeenNthCalledWith(
       1,
-      'time',
-      expect.stringMatching(timeRegex)
+      'digest',
+      'sha256:37622fd2c90118ad5c4899c82b67ee908c68e01d11966a9e22437d20d8d8c124'
     )
   })
 
-  it('sets a failed status', async () => {
+  it('gets the linuxserver/qbittorrent image arm/v7', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
       switch (name) {
-        case 'milliseconds':
-          return 'this is not a number'
+        case 'image':
+          return 'linuxserver/qbittorrent:20.04.1'
+        case 'architecture':
+          return 'arm/v7'
         default:
           return ''
       }
@@ -67,18 +148,30 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
-    expect(setFailedMock).toHaveBeenNthCalledWith(
+    expect(debugMock).toHaveBeenNthCalledWith(
       1,
-      'milliseconds not a number'
+      'Target image: author=linuxserver name=qbittorrent tag=20.04.1 os=linux arch=arm/v7 pageLimit=10'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      2,
+      'Requesting https://registry.hub.docker.com/v2/repositories/linuxserver/qbittorrent/tags?page=1&name=20.04.1 ...'
+    )
+
+    expect(setOutputMock).toHaveBeenNthCalledWith(
+      1,
+      'digest',
+      'sha256:19fe2170b605e8724406a24b8520e6547af6cf145183e9eb9d874e8de9bd71a7'
     )
   })
 
-  it('fails if no input is provided', async () => {
+  it('gets the library/docker:windowsservercore image windows', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
       switch (name) {
-        case 'milliseconds':
-          throw new Error('Input required and not supplied: milliseconds')
+        case 'image':
+          return 'library/docker:windowsservercore'
+        case 'os':
+          return 'windows'
         default:
           return ''
       }
@@ -88,9 +181,19 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
-    expect(setFailedMock).toHaveBeenNthCalledWith(
+    expect(debugMock).toHaveBeenNthCalledWith(
       1,
-      'Input required and not supplied: milliseconds'
+      'Target image: author=library name=docker tag=windowsservercore os=windows arch=amd64 pageLimit=10'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      2,
+      'Requesting https://registry.hub.docker.com/v2/repositories/library/docker/tags?page=1&name=windowsservercore ...'
+    )
+
+    expect(setOutputMock).toHaveBeenNthCalledWith(
+      1,
+      'digest',
+      'sha256:f036505370e71fe6013e09eae58982bf19d779f261af758f03c3e0ca6e959fb6'
     )
   })
 })
