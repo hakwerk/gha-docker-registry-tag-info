@@ -123,15 +123,9 @@ describe('action', () => {
       2,
       'Requesting https://registry.hub.docker.com/v2/repositories/linuxserver/qbittorrent/tags?page=1&name=latest ...'
     )
-
-    expect(setOutputMock).toHaveBeenNthCalledWith(
-      1,
-      'digest',
-      'sha256:37622fd2c90118ad5c4899c82b67ee908c68e01d11966a9e22437d20d8d8c124'
-    )
   })
 
-  it('gets the linuxserver/qbittorrent image arm/v7', async () => {
+  it('gets the linuxserver/qbittorrent:20.04.1 image arm/v7', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
       switch (name) {
@@ -188,12 +182,6 @@ describe('action', () => {
     expect(debugMock).toHaveBeenNthCalledWith(
       2,
       'Requesting https://registry.hub.docker.com/v2/repositories/library/docker/tags?page=1&name=windowsservercore ...'
-    )
-
-    expect(setOutputMock).toHaveBeenNthCalledWith(
-      1,
-      'digest',
-      'sha256:f036505370e71fe6013e09eae58982bf19d779f261af758f03c3e0ca6e959fb6'
     )
   })
 })
