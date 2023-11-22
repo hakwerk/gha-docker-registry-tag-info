@@ -10760,14 +10760,7 @@ function parseResponse(responseBody, tag, os, architecture) {
   return false
 }
 
-async function fetchImageMetadata(
-  author,
-  image,
-  tag,
-  os,
-  architecture,
-  pageLimit
-) {
+async function fetchImageMetadata(author, image, tag, os, architecture, pageLimit) {
   let page = 1
   let result = null
 
@@ -10803,14 +10796,7 @@ async function run() {
       `Target image: author=${imageAuthor} name=${imageName} tag=${imageTag} os=${imageOS} arch=${imageArch} pageLimit=${pageLimit}`
     )
 
-    const tagMetadata = await fetchImageMetadata(
-      imageAuthor,
-      imageName,
-      imageTag,
-      imageOS,
-      imageArch,
-      pageLimit
-    )
+    const tagMetadata = await fetchImageMetadata(imageAuthor, imageName, imageTag, imageOS, imageArch, pageLimit)
 
     core.setOutput('digest', tagMetadata.digest)
     core.setOutput('tagMetadata', tagMetadata.tagMetadata)
