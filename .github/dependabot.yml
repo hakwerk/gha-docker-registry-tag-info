@@ -9,5 +9,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
     ignore:
       - dependency-name: "got"
