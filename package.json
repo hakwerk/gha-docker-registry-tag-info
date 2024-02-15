@@ -1,21 +1,22 @@
 {
-  "name": "javascript-action",
-  "description": "GitHub Actions JavaScript Template",
-  "version": "0.0.0",
-  "author": "",
+  "name": "gha-docker-registry-tag-info",
+  "description": "GitHub Action to get tag information (primarily the digest) from a docker registry for a given image",
+  "version": "v1",
+  "author": "hakwerk",
   "private": true,
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/hakwerk/gha-docker-registry-tag-info",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/hakwerk/gha-docker-registry-tag-info.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/hakwerk/gha-docker-registry-tag-info/issues"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "JavaScript",
+    "Docker"
   ],
   "exports": {
     ".": "./dist/index.js"
