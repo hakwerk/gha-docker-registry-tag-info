@@ -1,7 +1,7 @@
 {
   "name": "gha-docker-registry-tag-info",
   "description": "GitHub Action to get tag information (primarily the digest) from a docker registry for a given image",
-  "version": "v1",
+  "version": "v2",
   "author": "hakwerk",
   "private": true,
   "homepage": "https://github.com/hakwerk/gha-docker-registry-tag-info",

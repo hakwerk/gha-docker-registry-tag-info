@@ -37,7 +37,7 @@ An example of how the Action is used would be the following:
 steps:
 - name: Fetch image metadata
   id: metadata
-  uses: hakwerk/gha-docker-registry-tag-info@v1
+  uses: hakwerk/gha-docker-registry-tag-info@v2
   with:
     image: debian:slim-buster
     os: linux
