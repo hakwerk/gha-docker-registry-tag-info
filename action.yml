@@ -24,7 +24,9 @@ outputs:
   tagMetadata:
     description: 'Full JSON output of the found image-tag metadata (as read from Docker Registry API)'
   finalImageMetadata:
-    description: 'Full JSON output of the found final image metadata, for the OS and architecture specified (as read from Docker Registry API)'
+    description:
+      'Full JSON output of the found final image metadata, for the OS and architecture specified (as read from Docker
+      Registry API)'
 
 runs:
   using: node20

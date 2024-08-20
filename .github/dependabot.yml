@@ -11,8 +11,8 @@ updates:
       interval: weekly
     groups:
       dev-dependencies:
-        dependency-type: "development"
+        dependency-type: 'development'
     ignore:
-      - dependency-name: "got"
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: 'got'
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
