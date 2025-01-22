@@ -2,8 +2,8 @@
 /* eslint prefer-const: "off" */
 // This basically is https://github.com/David-Lor/action-dockerhub-get-tag-metadata/blob/main/src/index.js
 //
-const core = require('@actions/core')
-const got = require('got')
+import * as core from '@actions/core'
+import got from 'got'
 
 const DEFAULT_OS = 'linux'
 const DEFAULT_ARCH = 'amd64'
@@ -114,7 +114,14 @@ function parseResponse(responseBody, tag, os, architecture) {
   return false
 }
 
-async function fetchImageMetadata(author, image, tag, os, architecture, pageLimit) {
+async function fetchImageMetadata(
+  author,
+  image,
+  tag,
+  os,
+  architecture,
+  pageLimit
+) {
   let page = 1
   let result = null
 
@@ -135,7 +142,7 @@ async function fetchImageMetadata(author, image, tag, os, architecture, pageLimi
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function run() {
+export async function run() {
   try {
     const inputImage = getInputVariable('image', null)
     const imageOS = getInputVariable('os', DEFAULT_OS)
@@ -150,17 +157,20 @@ async function run() {
       `Target image: author=${imageAuthor} name=${imageName} tag=${imageTag} os=${imageOS} arch=${imageArch} pageLimit=${pageLimit}`
     )
 
-    const tagMetadata = await fetchImageMetadata(imageAuthor, imageName, imageTag, imageOS, imageArch, pageLimit)
+    const tagMetadata = await fetchImageMetadata(
+      imageAuthor,
+      imageName,
+      imageTag,
+      imageOS,
+      imageArch,
+      pageLimit
+    )
 
     core.setOutput('digest', tagMetadata.digest)
     core.setOutput('tagMetadata', tagMetadata.tagMetadata)
     core.setOutput('finalImageMetadata', tagMetadata.finalImageMetadata)
   } catch (error) {
     // Fail the workflow run if an error occurs
-    core.setFailed(error.message)
+    if (error instanceof Error) core.setFailed(error.message)
   }
-}
-
-module.exports = {
-  run
 }
