@@ -35354,7 +35354,22 @@ async function fetchImageMetadata(
   }
 
   if (typeof result !== 'object') {
-    throw new Error('Image-Tag not found!')
+    if (architecture == 'arm64/v8') {
+      let page = 1;
+      let result = null;
+
+      while (result === null && page <= pageLimit) {
+        const responseBody = await request(author, image, tag, page);
+        result = parseResponse(responseBody, tag, os, 'arm64');
+        page++;
+      }
+
+      if (typeof result !== 'object') {
+        throw new Error('Image-Tag not found (even as just arm64)!')
+      }
+    } else {
+      throw new Error('Image-Tag not found!')
+    }
   }
 
   return result
