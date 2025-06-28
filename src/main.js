@@ -133,8 +133,8 @@ async function fetchImageMetadata(
 
   if (typeof result !== 'object') {
     if (architecture == 'arm64/v8') {
-      let page = 1
-      let result = null
+      page = 1
+      result = null
 
       while (result === null && page <= pageLimit) {
         const responseBody = await request(author, image, tag, page)
@@ -181,6 +181,9 @@ export async function run() {
       pageLimit
     )
 
+    core.debug(
+      `Result: ${tagMetadata}`
+    )
     core.setOutput('digest', tagMetadata.digest)
     core.setOutput('tagMetadata', tagMetadata.tagMetadata)
     core.setOutput('finalImageMetadata', tagMetadata.finalImageMetadata)
