@@ -181,9 +181,7 @@ export async function run() {
       pageLimit
     )
 
-    core.debug(
-      `Result: ${tagMetadata}`
-    )
+    core.debug(`Result: ${tagMetadata}`)
     core.setOutput('digest', tagMetadata.digest)
     core.setOutput('tagMetadata', tagMetadata.tagMetadata)
     core.setOutput('finalImageMetadata', tagMetadata.finalImageMetadata)
