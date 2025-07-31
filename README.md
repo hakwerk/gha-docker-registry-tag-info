@@ -4,7 +4,7 @@
 ![CI](https://github.com/hakwerk/gha-docker-registry-tag-info/actions/workflows/ci.yml/badge.svg)
 [![cov](https://raw.githubusercontent.com/hakwerk/gha-docker-registry-tag-info/main/badges/coverage.svg)](https://github.com/hakwerk/gha-docker-registry-tag-info/actions)
 
-GitHub Action to get tag information (primarily the digest) from a docker
+GitHub Action to get tag information (primarily the digest) from a Docker
 registry for a given image.
 
 The API endpoint used for fetching the metadata is (with the example of the

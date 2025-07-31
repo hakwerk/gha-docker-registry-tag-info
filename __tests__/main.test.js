@@ -43,7 +43,7 @@ describe('main.js', () => {
       2,
       'Requesting https://registry.hub.docker.com/v2/repositories/library/python/tags?page=1&name=slim-buster ...'
     )
-  })
+  }, 10000)
 
   it('complains if no image is given', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -61,7 +61,7 @@ describe('main.js', () => {
       1,
       "Input variable 'image' not specified!"
     )
-  })
+  }, 10000)
 
   it('complains if invalid image is given', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -78,7 +78,7 @@ describe('main.js', () => {
 
     // Verify that all of the core library functions were called correctly
     expect(core.setFailed).toHaveBeenNthCalledWith(1, 'Invalid image format')
-  })
+  }, 10000)
 
   it('complains if tag is not fount', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -95,7 +95,7 @@ describe('main.js', () => {
 
     // Verify that all of the core library functions were called correctly
     expect(core.setFailed).toHaveBeenNthCalledWith(1, 'Image-Tag not found!')
-  })
+  }, 10000)
 
   it('gets the linuxserver/qbittorrent image amd64', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -121,7 +121,7 @@ describe('main.js', () => {
       2,
       'Requesting https://registry.hub.docker.com/v2/repositories/linuxserver/qbittorrent/tags?page=1&name=latest ...'
     )
-  })
+  }, 30000)
 
   it('gets the linuxserver/qbittorrent:20.04.1 image arm/v7', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -153,7 +153,7 @@ describe('main.js', () => {
       'digest',
       'sha256:19fe2170b605e8724406a24b8520e6547af6cf145183e9eb9d874e8de9bd71a7'
     )
-  })
+  }, 30000)
 
   it('gets the library/docker:windowsservercore image windows', async () => {
     // Set the action's inputs as return values from core.getInput()
@@ -179,5 +179,5 @@ describe('main.js', () => {
       2,
       'Requesting https://registry.hub.docker.com/v2/repositories/library/docker/tags?page=1&name=windowsservercore ...'
     )
-  })
+  }, 30000)
 })
