@@ -39,7 +39,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^2.0.1",
     "got": "^11.8.6"
   },
   "devDependencies": {
