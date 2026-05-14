@@ -3606,9 +3606,9 @@ var hasRequiredConstants$3;
 function requireConstants$3 () {
 	if (hasRequiredConstants$3) return constants$3;
 	hasRequiredConstants$3 = 1;
-	(function (exports$1) {
-		Object.defineProperty(exports$1, "__esModule", { value: true });
-		exports$1.SPECIAL_HEADERS = exports$1.HEADER_STATE = exports$1.MINOR = exports$1.MAJOR = exports$1.CONNECTION_TOKEN_CHARS = exports$1.HEADER_CHARS = exports$1.TOKEN = exports$1.STRICT_TOKEN = exports$1.HEX = exports$1.URL_CHAR = exports$1.STRICT_URL_CHAR = exports$1.USERINFO_CHARS = exports$1.MARK = exports$1.ALPHANUM = exports$1.NUM = exports$1.HEX_MAP = exports$1.NUM_MAP = exports$1.ALPHA = exports$1.FINISH = exports$1.H_METHOD_MAP = exports$1.METHOD_MAP = exports$1.METHODS_RTSP = exports$1.METHODS_ICE = exports$1.METHODS_HTTP = exports$1.METHODS = exports$1.LENIENT_FLAGS = exports$1.FLAGS = exports$1.TYPE = exports$1.ERROR = void 0;
+	(function (exports) {
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.SPECIAL_HEADERS = exports.HEADER_STATE = exports.MINOR = exports.MAJOR = exports.CONNECTION_TOKEN_CHARS = exports.HEADER_CHARS = exports.TOKEN = exports.STRICT_TOKEN = exports.HEX = exports.URL_CHAR = exports.STRICT_URL_CHAR = exports.USERINFO_CHARS = exports.MARK = exports.ALPHANUM = exports.NUM = exports.HEX_MAP = exports.NUM_MAP = exports.ALPHA = exports.FINISH = exports.H_METHOD_MAP = exports.METHOD_MAP = exports.METHODS_RTSP = exports.METHODS_ICE = exports.METHODS_HTTP = exports.METHODS = exports.LENIENT_FLAGS = exports.FLAGS = exports.TYPE = exports.ERROR = void 0;
 		const utils_1 = requireUtils();
 		(function (ERROR) {
 		    ERROR[ERROR["OK"] = 0] = "OK";
@@ -3636,12 +3636,12 @@ function requireConstants$3 () {
 		    ERROR[ERROR["PAUSED_UPGRADE"] = 22] = "PAUSED_UPGRADE";
 		    ERROR[ERROR["PAUSED_H2_UPGRADE"] = 23] = "PAUSED_H2_UPGRADE";
 		    ERROR[ERROR["USER"] = 24] = "USER";
-		})(exports$1.ERROR || (exports$1.ERROR = {}));
+		})(exports.ERROR || (exports.ERROR = {}));
 		(function (TYPE) {
 		    TYPE[TYPE["BOTH"] = 0] = "BOTH";
 		    TYPE[TYPE["REQUEST"] = 1] = "REQUEST";
 		    TYPE[TYPE["RESPONSE"] = 2] = "RESPONSE";
-		})(exports$1.TYPE || (exports$1.TYPE = {}));
+		})(exports.TYPE || (exports.TYPE = {}));
 		(function (FLAGS) {
 		    FLAGS[FLAGS["CONNECTION_KEEP_ALIVE"] = 1] = "CONNECTION_KEEP_ALIVE";
 		    FLAGS[FLAGS["CONNECTION_CLOSE"] = 2] = "CONNECTION_CLOSE";
@@ -3653,12 +3653,12 @@ function requireConstants$3 () {
 		    FLAGS[FLAGS["TRAILING"] = 128] = "TRAILING";
 		    // 1 << 8 is unused
 		    FLAGS[FLAGS["TRANSFER_ENCODING"] = 512] = "TRANSFER_ENCODING";
-		})(exports$1.FLAGS || (exports$1.FLAGS = {}));
+		})(exports.FLAGS || (exports.FLAGS = {}));
 		(function (LENIENT_FLAGS) {
 		    LENIENT_FLAGS[LENIENT_FLAGS["HEADERS"] = 1] = "HEADERS";
 		    LENIENT_FLAGS[LENIENT_FLAGS["CHUNKED_LENGTH"] = 2] = "CHUNKED_LENGTH";
 		    LENIENT_FLAGS[LENIENT_FLAGS["KEEP_ALIVE"] = 4] = "KEEP_ALIVE";
-		})(exports$1.LENIENT_FLAGS || (exports$1.LENIENT_FLAGS = {}));
+		})(exports.LENIENT_FLAGS || (exports.LENIENT_FLAGS = {}));
 		var METHODS;
 		(function (METHODS) {
 		    METHODS[METHODS["DELETE"] = 0] = "DELETE";
@@ -3718,8 +3718,8 @@ function requireConstants$3 () {
 		    METHODS[METHODS["RECORD"] = 44] = "RECORD";
 		    /* RAOP */
 		    METHODS[METHODS["FLUSH"] = 45] = "FLUSH";
-		})(METHODS = exports$1.METHODS || (exports$1.METHODS = {}));
-		exports$1.METHODS_HTTP = [
+		})(METHODS = exports.METHODS || (exports.METHODS = {}));
+		exports.METHODS_HTTP = [
 		    METHODS.DELETE,
 		    METHODS.GET,
 		    METHODS.HEAD,
@@ -3757,10 +3757,10 @@ function requireConstants$3 () {
 		    // TODO(indutny): should we allow it with HTTP?
 		    METHODS.SOURCE,
 		];
-		exports$1.METHODS_ICE = [
+		exports.METHODS_ICE = [
 		    METHODS.SOURCE,
 		];
-		exports$1.METHODS_RTSP = [
+		exports.METHODS_RTSP = [
 		    METHODS.OPTIONS,
 		    METHODS.DESCRIBE,
 		    METHODS.ANNOUNCE,
@@ -3777,59 +3777,59 @@ function requireConstants$3 () {
 		    METHODS.GET,
 		    METHODS.POST,
 		];
-		exports$1.METHOD_MAP = utils_1.enumToMap(METHODS);
-		exports$1.H_METHOD_MAP = {};
-		Object.keys(exports$1.METHOD_MAP).forEach((key) => {
+		exports.METHOD_MAP = utils_1.enumToMap(METHODS);
+		exports.H_METHOD_MAP = {};
+		Object.keys(exports.METHOD_MAP).forEach((key) => {
 		    if (/^H/.test(key)) {
-		        exports$1.H_METHOD_MAP[key] = exports$1.METHOD_MAP[key];
+		        exports.H_METHOD_MAP[key] = exports.METHOD_MAP[key];
 		    }
 		});
 		(function (FINISH) {
 		    FINISH[FINISH["SAFE"] = 0] = "SAFE";
 		    FINISH[FINISH["SAFE_WITH_CB"] = 1] = "SAFE_WITH_CB";
 		    FINISH[FINISH["UNSAFE"] = 2] = "UNSAFE";
-		})(exports$1.FINISH || (exports$1.FINISH = {}));
-		exports$1.ALPHA = [];
+		})(exports.FINISH || (exports.FINISH = {}));
+		exports.ALPHA = [];
 		for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
 		    // Upper case
-		    exports$1.ALPHA.push(String.fromCharCode(i));
+		    exports.ALPHA.push(String.fromCharCode(i));
 		    // Lower case
-		    exports$1.ALPHA.push(String.fromCharCode(i + 0x20));
+		    exports.ALPHA.push(String.fromCharCode(i + 0x20));
 		}
-		exports$1.NUM_MAP = {
+		exports.NUM_MAP = {
 		    0: 0, 1: 1, 2: 2, 3: 3, 4: 4,
 		    5: 5, 6: 6, 7: 7, 8: 8, 9: 9,
 		};
-		exports$1.HEX_MAP = {
+		exports.HEX_MAP = {
 		    0: 0, 1: 1, 2: 2, 3: 3, 4: 4,
 		    5: 5, 6: 6, 7: 7, 8: 8, 9: 9,
 		    A: 0XA, B: 0XB, C: 0XC, D: 0XD, E: 0XE, F: 0XF,
 		    a: 0xa, b: 0xb, c: 0xc, d: 0xd, e: 0xe, f: 0xf,
 		};
-		exports$1.NUM = [
+		exports.NUM = [
 		    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 		];
-		exports$1.ALPHANUM = exports$1.ALPHA.concat(exports$1.NUM);
-		exports$1.MARK = ['-', '_', '.', '!', '~', '*', '\'', '(', ')'];
-		exports$1.USERINFO_CHARS = exports$1.ALPHANUM
-		    .concat(exports$1.MARK)
+		exports.ALPHANUM = exports.ALPHA.concat(exports.NUM);
+		exports.MARK = ['-', '_', '.', '!', '~', '*', '\'', '(', ')'];
+		exports.USERINFO_CHARS = exports.ALPHANUM
+		    .concat(exports.MARK)
 		    .concat(['%', ';', ':', '&', '=', '+', '$', ',']);
 		// TODO(indutny): use RFC
-		exports$1.STRICT_URL_CHAR = [
+		exports.STRICT_URL_CHAR = [
 		    '!', '"', '$', '%', '&', '\'',
 		    '(', ')', '*', '+', ',', '-', '.', '/',
 		    ':', ';', '<', '=', '>',
 		    '@', '[', '\\', ']', '^', '_',
 		    '`',
 		    '{', '|', '}', '~',
-		].concat(exports$1.ALPHANUM);
-		exports$1.URL_CHAR = exports$1.STRICT_URL_CHAR
+		].concat(exports.ALPHANUM);
+		exports.URL_CHAR = exports.STRICT_URL_CHAR
 		    .concat(['\t', '\f']);
 		// All characters with 0x80 bit set to 1
 		for (let i = 0x80; i <= 0xff; i++) {
-		    exports$1.URL_CHAR.push(i);
+		    exports.URL_CHAR.push(i);
 		}
-		exports$1.HEX = exports$1.NUM.concat(['a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F']);
+		exports.HEX = exports.NUM.concat(['a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F']);
 		/* Tokens as defined by rfc 2616. Also lowercases them.
 		 *        token       = 1*<any CHAR except CTLs or separators>
 		 *     separators     = "(" | ")" | "<" | ">" | "@"
@@ -3837,27 +3837,27 @@ function requireConstants$3 () {
 		 *                    | "/" | "[" | "]" | "?" | "="
 		 *                    | "{" | "}" | SP | HT
 		 */
-		exports$1.STRICT_TOKEN = [
+		exports.STRICT_TOKEN = [
 		    '!', '#', '$', '%', '&', '\'',
 		    '*', '+', '-', '.',
 		    '^', '_', '`',
 		    '|', '~',
-		].concat(exports$1.ALPHANUM);
-		exports$1.TOKEN = exports$1.STRICT_TOKEN.concat([' ']);
+		].concat(exports.ALPHANUM);
+		exports.TOKEN = exports.STRICT_TOKEN.concat([' ']);
 		/*
 		 * Verify that a char is a valid visible (printable) US-ASCII
 		 * character or %x80-FF
 		 */
-		exports$1.HEADER_CHARS = ['\t'];
+		exports.HEADER_CHARS = ['\t'];
 		for (let i = 32; i <= 255; i++) {
 		    if (i !== 127) {
-		        exports$1.HEADER_CHARS.push(i);
+		        exports.HEADER_CHARS.push(i);
 		    }
 		}
 		// ',' = \x44
-		exports$1.CONNECTION_TOKEN_CHARS = exports$1.HEADER_CHARS.filter((c) => c !== 44);
-		exports$1.MAJOR = exports$1.NUM_MAP;
-		exports$1.MINOR = exports$1.MAJOR;
+		exports.CONNECTION_TOKEN_CHARS = exports.HEADER_CHARS.filter((c) => c !== 44);
+		exports.MAJOR = exports.NUM_MAP;
+		exports.MINOR = exports.MAJOR;
 		var HEADER_STATE;
 		(function (HEADER_STATE) {
 		    HEADER_STATE[HEADER_STATE["GENERAL"] = 0] = "GENERAL";
@@ -3869,8 +3869,8 @@ function requireConstants$3 () {
 		    HEADER_STATE[HEADER_STATE["CONNECTION_CLOSE"] = 6] = "CONNECTION_CLOSE";
 		    HEADER_STATE[HEADER_STATE["CONNECTION_UPGRADE"] = 7] = "CONNECTION_UPGRADE";
 		    HEADER_STATE[HEADER_STATE["TRANSFER_ENCODING_CHUNKED"] = 8] = "TRANSFER_ENCODING_CHUNKED";
-		})(HEADER_STATE = exports$1.HEADER_STATE || (exports$1.HEADER_STATE = {}));
-		exports$1.SPECIAL_HEADERS = {
+		})(HEADER_STATE = exports.HEADER_STATE || (exports.HEADER_STATE = {}));
+		exports.SPECIAL_HEADERS = {
 		    'connection': HEADER_STATE.CONNECTION,
 		    'content-length': HEADER_STATE.CONTENT_LENGTH,
 		    'proxy-connection': HEADER_STATE.CONNECTION,
@@ -8761,10 +8761,10 @@ function requireClientH1 () {
 	const TIMEOUT_KEEP_ALIVE = 8 | USE_NATIVE_TIMER;
 
 	class Parser {
-	  constructor (client, socket, { exports: exports$1 }) {
+	  constructor (client, socket, { exports }) {
 	    assert(Number.isFinite(client[kMaxHeadersSize]) && client[kMaxHeadersSize] > 0);
 
-	    this.llhttp = exports$1;
+	    this.llhttp = exports;
 	    this.ptr = this.llhttp.llhttp_alloc(constants.TYPE.RESPONSE);
 	    this.client = client;
 	    this.socket = socket;
@@ -28116,11 +28116,11 @@ var hasRequiredDist;
 function requireDist () {
 	if (hasRequiredDist) return dist.exports;
 	hasRequiredDist = 1;
-	(function (module, exports$1) {
+	(function (module, exports) {
 		/// <reference lib="es2018"/>
 		/// <reference lib="dom"/>
 		/// <reference types="node"/>
-		Object.defineProperty(exports$1, "__esModule", { value: true });
+		Object.defineProperty(exports, "__esModule", { value: true });
 		const typedArrayTypeNames = [
 		    'Int8Array',
 		    'Uint8Array',
@@ -28420,7 +28420,7 @@ function requireDist () {
 		        throw new TypeError(`Expected value which is \`${description}\`, ${valuesMessage}.`);
 		    }
 		};
-		exports$1.assert = {
+		exports.assert = {
 		    // Unknowns.
 		    undefined: (value) => assertType(is.undefined(value), 'undefined', value),
 		    string: (value) => assertType(is.string(value), 'string', value),
@@ -28533,22 +28533,22 @@ function requireDist () {
 		        value: is.null_
 		    }
 		});
-		Object.defineProperties(exports$1.assert, {
+		Object.defineProperties(exports.assert, {
 		    class: {
-		        value: exports$1.assert.class_
+		        value: exports.assert.class_
 		    },
 		    function: {
-		        value: exports$1.assert.function_
+		        value: exports.assert.function_
 		    },
 		    null: {
-		        value: exports$1.assert.null_
+		        value: exports.assert.null_
 		    }
 		});
-		exports$1.default = is;
+		exports.default = is;
 		// For CommonJS default export support
 		module.exports = is;
 		module.exports.default = is;
-		module.exports.assert = exports$1.assert; 
+		module.exports.assert = exports.assert; 
 	} (dist, dist.exports));
 	return dist.exports;
 }
@@ -28688,8 +28688,8 @@ var hasRequiredSource$4;
 function requireSource$4 () {
 	if (hasRequiredSource$4) return source$3.exports;
 	hasRequiredSource$4 = 1;
-	(function (module, exports$1) {
-		Object.defineProperty(exports$1, "__esModule", { value: true });
+	(function (module, exports) {
+		Object.defineProperty(exports, "__esModule", { value: true });
 		function isTLSSocket(socket) {
 		    return socket.encrypted;
 		}
@@ -28731,7 +28731,7 @@ function requireSource$4 () {
 		        listeners.close(socket._hadError);
 		    }
 		};
-		exports$1.default = deferToConnect;
+		exports.default = deferToConnect;
 		// For CommonJS default export support
 		module.exports = deferToConnect;
 		module.exports.default = deferToConnect; 
@@ -28744,8 +28744,8 @@ var hasRequiredSource$3;
 function requireSource$3 () {
 	if (hasRequiredSource$3) return source$4.exports;
 	hasRequiredSource$3 = 1;
-	(function (module, exports$1) {
-		Object.defineProperty(exports$1, "__esModule", { value: true });
+	(function (module, exports) {
+		Object.defineProperty(exports, "__esModule", { value: true });
 		const defer_to_connect_1 = requireSource$4();
 		const util_1 = require$$1;
 		const nodejsMajorVersion = Number(process.versions.node.split('.')[0]);
@@ -28866,7 +28866,7 @@ function requireSource$3 () {
 		    });
 		    return timings;
 		};
-		exports$1.default = timer;
+		exports.default = timer;
 		// For CommonJS default export support
 		module.exports = timer;
 		module.exports.default = timer; 
@@ -33655,19 +33655,19 @@ var hasRequiredDnsIpVersion;
 function requireDnsIpVersion () {
 	if (hasRequiredDnsIpVersion) return dnsIpVersion;
 	hasRequiredDnsIpVersion = 1;
-	(function (exports$1) {
-		Object.defineProperty(exports$1, "__esModule", { value: true });
-		exports$1.dnsLookupIpVersionToFamily = exports$1.isDnsLookupIpVersion = void 0;
+	(function (exports) {
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.dnsLookupIpVersionToFamily = exports.isDnsLookupIpVersion = void 0;
 		const conversionTable = {
 		    auto: 0,
 		    ipv4: 4,
 		    ipv6: 6
 		};
-		exports$1.isDnsLookupIpVersion = (value) => {
+		exports.isDnsLookupIpVersion = (value) => {
 		    return value in conversionTable;
 		};
-		exports$1.dnsLookupIpVersionToFamily = (dnsLookupIpVersion) => {
-		    if (exports$1.isDnsLookupIpVersion(dnsLookupIpVersion)) {
+		exports.dnsLookupIpVersionToFamily = (dnsLookupIpVersion) => {
+		    if (exports.isDnsLookupIpVersion(dnsLookupIpVersion)) {
 		        return conversionTable[dnsLookupIpVersion];
 		    }
 		    throw new Error('Invalid DNS lookup IP version');
@@ -33845,9 +33845,9 @@ var hasRequiredCore;
 function requireCore () {
 	if (hasRequiredCore) return core;
 	hasRequiredCore = 1;
-	(function (exports$1) {
-		Object.defineProperty(exports$1, "__esModule", { value: true });
-		exports$1.UnsupportedProtocolError = exports$1.ReadError = exports$1.TimeoutError = exports$1.UploadError = exports$1.CacheError = exports$1.HTTPError = exports$1.MaxRedirectsError = exports$1.RequestError = exports$1.setNonEnumerableProperties = exports$1.knownHookEvents = exports$1.withoutBody = exports$1.kIsNormalizedAlready = void 0;
+	(function (exports) {
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.UnsupportedProtocolError = exports.ReadError = exports.TimeoutError = exports.UploadError = exports.CacheError = exports.HTTPError = exports.MaxRedirectsError = exports.RequestError = exports.setNonEnumerableProperties = exports.knownHookEvents = exports.withoutBody = exports.kIsNormalizedAlready = void 0;
 		const util_1 = require$$1;
 		const stream_1 = require$$0$8;
 		const fs_1 = fs__default;
@@ -33894,10 +33894,10 @@ function requireCore () {
 		const kJobs = Symbol('jobs');
 		const kOriginalResponse = Symbol('originalResponse');
 		const kRetryTimeout = Symbol('retryTimeout');
-		exports$1.kIsNormalizedAlready = Symbol('isNormalizedAlready');
+		exports.kIsNormalizedAlready = Symbol('isNormalizedAlready');
 		const supportsBrotli = is_1.default.string(process.versions.brotli);
-		exports$1.withoutBody = new Set(['GET', 'HEAD']);
-		exports$1.knownHookEvents = [
+		exports.withoutBody = new Set(['GET', 'HEAD']);
+		exports.knownHookEvents = [
 		    'init',
 		    'beforeRequest',
 		    'beforeRedirect',
@@ -33940,7 +33940,7 @@ function requireCore () {
 		    'json',
 		    'form'
 		];
-		exports$1.setNonEnumerableProperties = (sources, to) => {
+		exports.setNonEnumerableProperties = (sources, to) => {
 		    // Non enumerable properties shall not be merged
 		    const properties = {};
 		    for (const source of sources) {
@@ -34011,7 +34011,7 @@ function requireCore () {
 		        }
 		    }
 		}
-		exports$1.RequestError = RequestError;
+		exports.RequestError = RequestError;
 		/**
 		An error to be thrown when the server redirects you more than ten times.
 		Includes a `response` property.
@@ -34023,7 +34023,7 @@ function requireCore () {
 		        this.code = 'ERR_TOO_MANY_REDIRECTS';
 		    }
 		}
-		exports$1.MaxRedirectsError = MaxRedirectsError;
+		exports.MaxRedirectsError = MaxRedirectsError;
 		/**
 		An error to be thrown when the server response code is not 2xx nor 3xx if `options.followRedirect` is `true`, but always except for 304.
 		Includes a `response` property.
@@ -34035,7 +34035,7 @@ function requireCore () {
 		        this.code = 'ERR_NON_2XX_3XX_RESPONSE';
 		    }
 		}
-		exports$1.HTTPError = HTTPError;
+		exports.HTTPError = HTTPError;
 		/**
 		An error to be thrown when a cache method fails.
 		For example, if the database goes down or there's a filesystem error.
@@ -34047,7 +34047,7 @@ function requireCore () {
 		        this.code = this.code === 'ERR_GOT_REQUEST_ERROR' ? 'ERR_CACHE_ACCESS' : this.code;
 		    }
 		}
-		exports$1.CacheError = CacheError;
+		exports.CacheError = CacheError;
 		/**
 		An error to be thrown when the request body is a stream and an error occurs while reading from that stream.
 		*/
@@ -34058,7 +34058,7 @@ function requireCore () {
 		        this.code = this.code === 'ERR_GOT_REQUEST_ERROR' ? 'ERR_UPLOAD' : this.code;
 		    }
 		}
-		exports$1.UploadError = UploadError;
+		exports.UploadError = UploadError;
 		/**
 		An error to be thrown when the request is aborted due to a timeout.
 		Includes an `event` and `timings` property.
@@ -34071,7 +34071,7 @@ function requireCore () {
 		        this.timings = timings;
 		    }
 		}
-		exports$1.TimeoutError = TimeoutError;
+		exports.TimeoutError = TimeoutError;
 		/**
 		An error to be thrown when reading from response stream fails.
 		*/
@@ -34082,7 +34082,7 @@ function requireCore () {
 		        this.code = this.code === 'ERR_GOT_REQUEST_ERROR' ? 'ERR_READING_RESPONSE_STREAM' : this.code;
 		    }
 		}
-		exports$1.ReadError = ReadError;
+		exports.ReadError = ReadError;
 		/**
 		An error to be thrown when given an unsupported protocol.
 		*/
@@ -34093,7 +34093,7 @@ function requireCore () {
 		        this.code = 'ERR_UNSUPPORTED_PROTOCOL';
 		    }
 		}
-		exports$1.UnsupportedProtocolError = UnsupportedProtocolError;
+		exports.UnsupportedProtocolError = UnsupportedProtocolError;
 		const proxiedRequestEvents = [
 		    'socket',
 		    'connect',
@@ -34148,7 +34148,7 @@ function requireCore () {
 		        if (json || body || form) {
 		            this._lockWrite();
 		        }
-		        if (exports$1.kIsNormalizedAlready in options) {
+		        if (exports.kIsNormalizedAlready in options) {
 		            this.options = options;
 		        }
 		        else {
@@ -34467,7 +34467,7 @@ function requireCore () {
 		        // `options.hooks`
 		        const areHooksDefault = options.hooks === (defaults === null || defaults === void 0 ? void 0 : defaults.hooks);
 		        options.hooks = { ...options.hooks };
-		        for (const event of exports$1.knownHookEvents) {
+		        for (const event of exports.knownHookEvents) {
 		            if (event in options.hooks) {
 		                if (is_1.default.array(options.hooks[event])) {
 		                    // See https://github.com/microsoft/TypeScript/issues/31445#issuecomment-576929044
@@ -34482,7 +34482,7 @@ function requireCore () {
 		            }
 		        }
 		        if (defaults && !areHooksDefault) {
-		            for (const event of exports$1.knownHookEvents) {
+		            for (const event of exports.knownHookEvents) {
 		                const defaultHooks = defaults.hooks[event];
 		                if (defaultHooks.length > 0) {
 		                    // See https://github.com/microsoft/TypeScript/issues/31445#issuecomment-576929044
@@ -34535,7 +34535,7 @@ function requireCore () {
 		        }
 		        options.maxRedirects = (_e = options.maxRedirects) !== null && _e !== void 0 ? _e : 0;
 		        // Set non-enumerable properties
-		        exports$1.setNonEnumerableProperties([defaults, rawOptions], options);
+		        exports.setNonEnumerableProperties([defaults, rawOptions], options);
 		        return normalize_arguments_1.default(options, defaults);
 		    }
 		    _lockWrite() {
@@ -34556,7 +34556,7 @@ function requireCore () {
 		        const isJSON = !is_1.default.undefined(options.json);
 		        const isBody = !is_1.default.undefined(options.body);
 		        const hasPayload = isForm || isJSON || isBody;
-		        const cannotHaveBody = exports$1.withoutBody.has(options.method) && !(options.method === 'GET' && options.allowGetBody);
+		        const cannotHaveBody = exports.withoutBody.has(options.method) && !(options.method === 'GET' && options.allowGetBody);
 		        this._cannotHaveBody = cannotHaveBody;
 		        if (hasPayload) {
 		            if (cannotHaveBody) {
@@ -35349,7 +35349,7 @@ function requireCore () {
 		        return this;
 		    }
 		}
-		exports$1.default = Request; 
+		exports.default = Request; 
 	} (core));
 	return core;
 }
@@ -35359,7 +35359,7 @@ var hasRequiredTypes$1;
 function requireTypes$1 () {
 	if (hasRequiredTypes$1) return types$1;
 	hasRequiredTypes$1 = 1;
-	(function (exports$1) {
+	(function (exports) {
 		var __createBinding = (types$1 && types$1.__createBinding) || (Object.create ? (function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -35367,11 +35367,11 @@ function requireTypes$1 () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		}));
-		var __exportStar = (types$1 && types$1.__exportStar) || function(m, exports$1) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$1, p)) __createBinding(exports$1, m, p);
+		var __exportStar = (types$1 && types$1.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 		};
-		Object.defineProperty(exports$1, "__esModule", { value: true });
-		exports$1.CancelError = exports$1.ParseError = void 0;
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.CancelError = exports.ParseError = void 0;
 		const core_1 = /*@__PURE__*/ requireCore();
 		/**
 		An error to be thrown when server response code is 2xx, and parsing body fails.
@@ -35385,7 +35385,7 @@ function requireTypes$1 () {
 		        this.code = this.code === 'ERR_GOT_REQUEST_ERROR' ? 'ERR_BODY_PARSE_FAILURE' : this.code;
 		    }
 		}
-		exports$1.ParseError = ParseError;
+		exports.ParseError = ParseError;
 		/**
 		An error to be thrown when the request is aborted with `.cancel()`.
 		*/
@@ -35399,8 +35399,8 @@ function requireTypes$1 () {
 		        return true;
 		    }
 		}
-		exports$1.CancelError = CancelError;
-		__exportStar(/*@__PURE__*/ requireCore(), exports$1); 
+		exports.CancelError = CancelError;
+		__exportStar(/*@__PURE__*/ requireCore(), exports); 
 	} (types$1));
 	return types$1;
 }
@@ -35444,7 +35444,7 @@ var hasRequiredAsPromise;
 function requireAsPromise () {
 	if (hasRequiredAsPromise) return asPromise;
 	hasRequiredAsPromise = 1;
-	(function (exports$1) {
+	(function (exports) {
 		var __createBinding = (asPromise && asPromise.__createBinding) || (Object.create ? (function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -35452,10 +35452,10 @@ function requireAsPromise () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		}));
-		var __exportStar = (asPromise && asPromise.__exportStar) || function(m, exports$1) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$1, p)) __createBinding(exports$1, m, p);
+		var __exportStar = (asPromise && asPromise.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 		};
-		Object.defineProperty(exports$1, "__esModule", { value: true });
+		Object.defineProperty(exports, "__esModule", { value: true });
 		const events_1 = require$$0;
 		const is_1 = /*@__PURE__*/ requireDist();
 		const PCancelable = requirePCancelable();
@@ -35618,8 +35618,8 @@ function requireAsPromise () {
 		    promise.text = () => shortcut('text');
 		    return promise;
 		}
-		exports$1.default = asPromise$1;
-		__exportStar(/*@__PURE__*/ requireTypes$1(), exports$1); 
+		exports.default = asPromise$1;
+		__exportStar(/*@__PURE__*/ requireTypes$1(), exports); 
 	} (asPromise));
 	return asPromise;
 }
@@ -35700,7 +35700,7 @@ var hasRequiredCreate;
 function requireCreate () {
 	if (hasRequiredCreate) return create;
 	hasRequiredCreate = 1;
-	(function (exports$1) {
+	(function (exports) {
 		var __createBinding = (create && create.__createBinding) || (Object.create ? (function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -35708,11 +35708,11 @@ function requireCreate () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		}));
-		var __exportStar = (create && create.__exportStar) || function(m, exports$1) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$1, p)) __createBinding(exports$1, m, p);
+		var __exportStar = (create && create.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 		};
-		Object.defineProperty(exports$1, "__esModule", { value: true });
-		exports$1.defaultHandler = void 0;
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.defaultHandler = void 0;
 		const is_1 = /*@__PURE__*/ requireDist();
 		const as_promise_1 = /*@__PURE__*/ requireAsPromise();
 		const create_rejection_1 = /*@__PURE__*/ requireCreateRejection();
@@ -35752,7 +35752,7 @@ function requireCreate () {
 		    'head',
 		    'delete'
 		];
-		exports$1.defaultHandler = (options, next) => next(options);
+		exports.defaultHandler = (options, next) => next(options);
 		const callInitHooks = (hooks, options) => {
 		    if (hooks) {
 		        for (const hook of hooks) {
@@ -35845,9 +35845,9 @@ function requireCreate () {
 		                isMutableDefaults = value.mutableDefaults;
 		            }
 		        }
-		        handlers = handlers.filter(handler => handler !== exports$1.defaultHandler);
+		        handlers = handlers.filter(handler => handler !== exports.defaultHandler);
 		        if (handlers.length === 0) {
-		            handlers.push(exports$1.defaultHandler);
+		            handlers.push(exports.defaultHandler);
 		        }
 		        return create$1({
 		            options: mergeOptions(...optionsArray),
@@ -35938,8 +35938,8 @@ function requireCreate () {
 		    got.mergeOptions = mergeOptions;
 		    return got;
 		};
-		exports$1.default = create$1;
-		__exportStar(/*@__PURE__*/ requireTypes(), exports$1); 
+		exports.default = create$1;
+		__exportStar(/*@__PURE__*/ requireTypes(), exports); 
 	} (create));
 	return create;
 }
@@ -35951,7 +35951,7 @@ var hasRequiredSource;
 function requireSource () {
 	if (hasRequiredSource) return source$5.exports;
 	hasRequiredSource = 1;
-	(function (module, exports$1) {
+	(function (module, exports) {
 		var __createBinding = (source && source.__createBinding) || (Object.create ? (function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -35959,10 +35959,10 @@ function requireSource () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		}));
-		var __exportStar = (source && source.__exportStar) || function(m, exports$1) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$1, p)) __createBinding(exports$1, m, p);
+		var __exportStar = (source && source.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 		};
-		Object.defineProperty(exports$1, "__esModule", { value: true });
+		Object.defineProperty(exports, "__esModule", { value: true });
 		const url_1 = require$$0$a;
 		const create_1 = /*@__PURE__*/ requireCreate();
 		const defaults = {
@@ -36076,13 +36076,13 @@ function requireSource () {
 		    mutableDefaults: false
 		};
 		const got = create_1.default(defaults);
-		exports$1.default = got;
+		exports.default = got;
 		// For CommonJS default export support
 		module.exports = got;
 		module.exports.default = got;
 		module.exports.__esModule = true; // Workaround for TS issue: https://github.com/sindresorhus/got/pull/1267
-		__exportStar(/*@__PURE__*/ requireCreate(), exports$1);
-		__exportStar(/*@__PURE__*/ requireAsPromise(), exports$1); 
+		__exportStar(/*@__PURE__*/ requireCreate(), exports);
+		__exportStar(/*@__PURE__*/ requireAsPromise(), exports); 
 	} (source$5, source$5.exports));
 	return source$5.exports;
 }
